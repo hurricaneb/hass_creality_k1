@@ -34,14 +34,12 @@ class CrealityK1Entity(CoordinatorEntity[CrealityK1DataUpdateCoordinator]):
                 model=self.coordinator.data.get("model", DEVICE_MODEL),
                 hw_version=hw_version,
                 sw_version=sw_version,
-                via_device=(DOMAIN, self._config_entry.entry_id),
             )
         return DeviceInfo(
             identifiers={(DOMAIN, self._config_entry.entry_id)},
             name=self._config_entry.title,
             manufacturer=DEVICE_MANUFACTURER,
             model=DEVICE_MODEL,
-            via_device=(DOMAIN, self._config_entry.entry_id),
         )
 
     @property
