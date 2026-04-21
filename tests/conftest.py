@@ -22,7 +22,7 @@ def mock_config_entry() -> MockConfigEntry:
     """Return the default mocked config entry."""
     return MockConfigEntry(
         domain=DOMAIN,
-        data={"host": "1.2.3.4", "name": "Creality K1"},
+        data={"ip_address": "1.2.3.4", "name": "Creality K1"},
         entry_id="test",
     )
 

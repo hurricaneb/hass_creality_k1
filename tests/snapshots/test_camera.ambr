@@ -1,0 +1,17 @@
+# serializer version: 1
+# name: test_camera[camera.mock_title]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'access_token': 'ad9a15d694fec509301d4e56b5508c749dcbbce6cbd9d88bc3170c61db284098',
+      'entity_picture': '/api/camera_proxy/camera.mock_title?token=ad9a15d694fec509301d4e56b5508c749dcbbce6cbd9d88bc3170c61db284098',
+      'friendly_name': 'Mock Title',
+      'supported_features': <CameraEntityFeature: 0>,
+    }),
+    'context': <ANY>,
+    'entity_id': 'camera.mock_title',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'idle',
+  })
+# ---

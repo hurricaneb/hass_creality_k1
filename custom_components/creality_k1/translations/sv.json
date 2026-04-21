@@ -54,8 +54,11 @@
       "home_z": { "name": "Home Z" }
     },
     "climate": {
-      "nozzle_heater": { "name": "Nozzle-värmare" },
-      "bed_heater": { "name": "Bädd-värmare" }
+      "nozzle_heater": { "name": "Munstycke (Värmare)" },
+      "bed_heater": { "name": "Byggplatta (Värmare)" }
+    },
+    "camera": {
+      "camera": { "name": "Kamera" }
     }
   }
 }
