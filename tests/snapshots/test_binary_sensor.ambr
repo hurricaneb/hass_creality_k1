@@ -2,7 +2,6 @@
 # name: test_binary_sensors[binary_sensor.mock_title_filament_sensor]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'presence',
       'friendly_name': 'Mock Title Filament sensor',
       'icon': 'mdi:printer-3d-nozzle',
     }),
@@ -17,7 +16,6 @@
 # name: test_binary_sensors[binary_sensor.mock_title_sd_card]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'device_class': 'presence',
       'friendly_name': 'Mock Title SD card',
       'icon': 'mdi:sd',
     }),

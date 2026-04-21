@@ -28,14 +28,12 @@ BINARY_SENSOR_TYPES: tuple[K1BinarySensorEntityDescription, ...] = (
     K1BinarySensorEntityDescription(
         key="material_detect",
         translation_key="material_detect",
-        device_class=BinarySensorDeviceClass.PRESENCE,
         icon="mdi:printer-3d-nozzle",
         value_fn=lambda data: data.get("materialDetect") == 1 if data.get("materialDetect") is not None else None,
     ),
     K1BinarySensorEntityDescription(
         key="tf_card",
         translation_key="tf_card",
-        device_class=BinarySensorDeviceClass.PRESENCE,
         icon="mdi:sd",
         value_fn=lambda data: data.get("tfCard") == 1 if data.get("tfCard") is not None else None,
     ),
