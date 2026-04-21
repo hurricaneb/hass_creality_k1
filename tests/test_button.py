@@ -35,7 +35,7 @@ async def test_button_press(
         return_value=True,
     ):
         await setup_integration(hass, mock_config_entry, data={})
-        coordinator = hass.data["creality_k1"][mock_config_entry.entry_id]
+        coordinator = mock_config_entry.runtime_data
         coordinator.websocket.send_message = AsyncMock()
 
         # Press the button

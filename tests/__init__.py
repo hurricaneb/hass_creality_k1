@@ -22,7 +22,7 @@ async def setup_integration(
         await hass.async_block_till_done()
 
         if data:
-            coordinator = hass.data["creality_k1"][mock_config_entry.entry_id]
+            coordinator = mock_config_entry.runtime_data
             coordinator.async_set_updated_data(data)
             await hass.async_block_till_done()
 

@@ -1,5 +1,5 @@
 """Tests for the Creality K1 climate platform."""
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock, AsyncMock
 
 from homeassistant.core import HomeAssistant
 from syrupy.assertion import SnapshotAssertion
@@ -39,7 +39,7 @@ async def test_climate_services(
             mock_config_entry,
             data={"targetNozzleTemp": 0, "maxNozzleTemp": 300},
         )
-        coordinator = hass.data["creality_k1"][mock_config_entry.entry_id]
+        coordinator = mock_config_entry.runtime_data
         coordinator.websocket.send_message = AsyncMock()
 
         # Set temperature
@@ -88,3 +88,43 @@ async def test_climates_unavailable(
         # Assert that all climates are unavailable
         for climate in climates:
             assert climate.state == "unavailable"
+
+
+async def test_climate_extra_coverage(
+    hass: HomeAssistant,
+    mock_config_entry,
+) -> None:
+    """Test extra coverage for climate platform."""
+    await setup_integration(hass, mock_config_entry, data={"targetBedTemp0": 0})
+    coordinator = mock_config_entry.runtime_data
+    coordinator.websocket.send_message = AsyncMock()
+    from custom_components.creality_k1.climate import K1Climate
+    climate = K1Climate(coordinator, mock_config_entry, "bed0", "test", "bedTemp0", "targetBedTemp0", "maxBedTemp")
+    climate.hass = hass
+    climate.async_write_ha_state = MagicMock()
+
+
+    # Test set_hvac_mode HEAT (covers line 115-128)
+    await climate.async_set_hvac_mode("heat")
+    # Check if correct default temp was set (60.0 for bed)
+    coordinator.websocket.send_message.assert_called_with(
+        {"method": "set", "params": {"gcodeCmd": "M140 I0 S60"}}
+    )
+
+    # Test set_hvac_mode HEAT when already heating (covers line 124-127)
+    coordinator.data["targetBedTemp0"] = 50.0
+    await climate.async_set_hvac_mode("heat")
+    
+    # Test set_hvac_mode OFF (covers line 111-114)
+    await climate.async_set_hvac_mode("off")
+    coordinator.websocket.send_message.assert_called_with(
+        {"method": "set", "params": {"gcodeCmd": "M140 I0 S0"}}
+    )
+
+    # Test set_temperature with None (covers line 135)
+    await climate.async_set_temperature(**{"temperature": None})
+    
+    # Test Unsupported HVAC mode (covers line 129)
+    await climate.async_set_hvac_mode("unsupported")
+
+

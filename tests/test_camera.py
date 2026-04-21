@@ -15,7 +15,7 @@ async def test_camera(
     """Test the camera."""
     with patch("custom_components.creality_k1.coordinator.CrealityK1DataUpdateCoordinator.async_config_entry_first_refresh") as mock_refresh:
         async def mock_first_refresh():
-            coordinator = hass.data["creality_k1"][mock_config_entry.entry_id]
+            coordinator = mock_config_entry.runtime_data
             coordinator.data = {"video": 1}
         mock_refresh.side_effect = mock_first_refresh
 
@@ -25,9 +25,21 @@ async def test_camera(
         cameras = hass.states.async_all("camera")
         assert len(cameras) > 0
 
-        # Assert that the state of each camera matches the snapshot
+        # Assert that the state of each camera matches the snapshot, ignoring dynamic tokens
         for camera in cameras:
-            assert camera == snapshot(name=f"{camera.entity_id}")
+            camera_dict = {
+                "entity_id": camera.entity_id,
+                "state": camera.state,
+                "attributes": dict(camera.attributes),
+            }
+            # Mask dynamic attributes
+            for key in ["access_token", "entity_picture"]:
+                camera_dict["attributes"].pop(key, None)
+            
+            assert camera_dict == snapshot(name=f"{camera.entity_id}")
+
+
+
 
 async def test_camera_not_added(
     hass: HomeAssistant,
@@ -36,7 +48,7 @@ async def test_camera_not_added(
     """Test that camera is not added if video is 0."""
     with patch("custom_components.creality_k1.coordinator.CrealityK1DataUpdateCoordinator.async_config_entry_first_refresh") as mock_refresh:
         async def mock_first_refresh():
-            coordinator = hass.data["creality_k1"][mock_config_entry.entry_id]
+            coordinator = mock_config_entry.runtime_data
             coordinator.data = {"video": 0}
         mock_refresh.side_effect = mock_first_refresh
 

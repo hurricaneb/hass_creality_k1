@@ -14,7 +14,7 @@ async def test_binary_sensors(
     """Test the creation and values of the binary sensors."""
     with patch("custom_components.creality_k1.coordinator.CrealityK1DataUpdateCoordinator.async_config_entry_first_refresh") as mock_refresh:
         async def mock_first_refresh():
-            coordinator = hass.data["creality_k1"][mock_config_entry.entry_id]
+            coordinator = mock_config_entry.runtime_data
             coordinator.data = {
                 "materialDetect": 1,
                 "tfCard": 0,
@@ -29,3 +29,13 @@ async def test_binary_sensors(
 
         for entity in entities:
             assert entity == snapshot(name=f"{entity.entity_id}")
+
+async def test_binary_sensor_no_value_fn(hass: HomeAssistant) -> None:
+    """Test binary sensor with no value_fn."""
+    from custom_components.creality_k1.binary_sensor import K1BinarySensor, K1BinarySensorEntityDescription
+    from unittest.mock import MagicMock
+    mock_coordinator = MagicMock()
+    mock_entry = MagicMock()
+    desc = K1BinarySensorEntityDescription(key="test", value_fn=None)
+    sensor = K1BinarySensor(mock_coordinator, mock_entry, desc)
+    assert sensor.is_on is None

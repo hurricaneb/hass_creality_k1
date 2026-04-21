@@ -13,6 +13,7 @@ from .entity import CrealityK1Entity
 from .coordinator import CrealityK1DataUpdateCoordinator
 
 _LOGGER = logging.getLogger(__name__)
+PARALLEL_UPDATES = 0
 
 async def async_setup_entry(
     hass: HomeAssistant,
@@ -20,7 +21,7 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up the Creality K1 fans from a config entry."""
-    coordinator: CrealityK1DataUpdateCoordinator = hass.data[DOMAIN][config_entry.entry_id]
+    coordinator: CrealityK1DataUpdateCoordinator = config_entry.runtime_data
     fans = []
     icons = {
         "model_fan": "mdi:fan-speed-1",

@@ -15,7 +15,7 @@ async def test_numbers(
     """Test the creation and values of the numbers."""
     with patch("custom_components.creality_k1.coordinator.CrealityK1DataUpdateCoordinator.async_config_entry_first_refresh") as mock_refresh:
         async def mock_first_refresh():
-            coordinator = hass.data["creality_k1"][mock_config_entry.entry_id]
+            coordinator = mock_config_entry.runtime_data
             coordinator.data = {
                 "curFeedratePct": 100,
                 "curFlowratePct": 95,
@@ -37,7 +37,7 @@ async def test_set_number(
     """Test setting number value."""
     with patch("custom_components.creality_k1.coordinator.CrealityK1DataUpdateCoordinator.async_config_entry_first_refresh") as mock_refresh:
         async def mock_first_refresh():
-            coordinator = hass.data["creality_k1"][mock_config_entry.entry_id]
+            coordinator = mock_config_entry.runtime_data
             coordinator.data = {
                 "curFeedratePct": 100,
             }
@@ -56,3 +56,36 @@ async def test_set_number(
             
             state = hass.states.get("number.mock_title_print_speed")
             assert float(state.state) == 150.0
+
+
+async def test_number_error_cases(
+    hass: HomeAssistant,
+    mock_config_entry,
+) -> None:
+    """Test the number error cases."""
+    from custom_components.creality_k1.number import get_int, K1Number, K1NumberEntityDescription
+    from unittest.mock import MagicMock
+
+    # Test get_int with invalid data (covers lines 33)
+    assert get_int({"key": "invalid"}, "key") is None
+    
+    # Test number with no value_fn (covers line 100)
+    mock_coordinator = MagicMock()
+    mock_entry = MagicMock()
+    desc = K1NumberEntityDescription(key="test", value_fn=None)
+    number = K1Number(mock_coordinator, mock_entry, desc)
+    assert number.native_value is None
+
+    # Test flow rate optimistic update (covers line 110)
+    await setup_integration(hass, mock_config_entry, data={"curFlowratePct": 100})
+    coordinator = mock_config_entry.runtime_data
+    coordinator.websocket.send_message = AsyncMock()
+
+    await hass.services.async_call(
+        NUMBER_DOMAIN,
+        SERVICE_SET_VALUE,
+        {"entity_id": "number.mock_title_flow_rate", "value": 110},
+        blocking=True,
+    )
+    assert coordinator.data["curFlowratePct"] == 110
+

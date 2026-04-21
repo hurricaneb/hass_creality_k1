@@ -37,14 +37,24 @@ class CrealityK1DataUpdateCoordinator(DataUpdateCoordinator):
             url=ws_url,
             new_data_callback=self.process_raw_data,
             )
+        self._was_available = True
 
     async def _async_update_data(self) -> dict:
         """Use this to ensure the Creality K1 is connected"""
         if not self.websocket.is_connected:
             _LOGGER.debug("Coordinator: WebSocket not connected, attempting connect.")
             await self.websocket.connect()
+        
         if not self.websocket.is_connected:
+            if self._was_available:
+                _LOGGER.error("Creality K1 connection lost")
+                self._was_available = False
             raise UpdateFailed("Creality K1 not connected") # Important to raise for retries
+        
+        if not self._was_available:
+            _LOGGER.info("Creality K1 connection restored")
+            self._was_available = True
+            
         return self.latest_data
 
     def process_raw_data(self, raw_data: dict) -> None:

@@ -18,6 +18,7 @@ from .entity import CrealityK1Entity
 from .coordinator import CrealityK1DataUpdateCoordinator
 
 _LOGGER = logging.getLogger(__name__)
+PARALLEL_UPDATES = 0
 
 @dataclass(frozen=True)
 class K1NumberEntityDescription(NumberEntityDescription):
@@ -64,7 +65,7 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up the Creality K1 numbers."""
-    coordinator: CrealityK1DataUpdateCoordinator = hass.data[DOMAIN][config_entry.entry_id]
+    coordinator: CrealityK1DataUpdateCoordinator = config_entry.runtime_data
     
     entities = [
         K1Number(coordinator, config_entry, description)

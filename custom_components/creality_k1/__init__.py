@@ -9,13 +9,14 @@ from .coordinator import CrealityK1DataUpdateCoordinator  # DataUpdateCoordinato
 
 _LOGGER = logging.getLogger(__name__)
 
-async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
+type CrealityK1ConfigEntry = ConfigEntry[CrealityK1DataUpdateCoordinator]
+
+async def async_setup_entry(hass: HomeAssistant, config_entry: CrealityK1ConfigEntry) -> bool:
     """Set up Creality K1 from a config entry."""
 
     # Store coordinator instance per entry for platform access
-    hass.data.setdefault(DOMAIN, {})
     coordinator = CrealityK1DataUpdateCoordinator(hass, config_entry)
-    hass.data[DOMAIN][config_entry.entry_id] = coordinator
+    config_entry.runtime_data = coordinator
 
     # Trigger initial connection
     try:
@@ -28,23 +29,15 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> b
 
     return True
 
-async def async_unload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
+async def async_unload_entry(hass: HomeAssistant, config_entry: CrealityK1ConfigEntry) -> bool:
     """Unload a config entry."""
     # Unload platforms first
     unload_ok = await hass.config_entries.async_unload_platforms(config_entry, PLATFORMS) # Use PLATFORMS
 
     if unload_ok:
         # Get the specific websocket instance and close it.
-        if config_entry.entry_id in hass.data[DOMAIN]:
-            coordinator = hass.data[DOMAIN][config_entry.entry_id]
-            await coordinator.websocket.disconnect()
-
-            # Delete all data for this entry
-            hass.data[DOMAIN].pop(config_entry.entry_id)
-
-        # Remove whole domain if no more entries 
-        if not hass.data[DOMAIN]:
-            hass.data.pop(DOMAIN)
+        coordinator = config_entry.runtime_data
+        await coordinator.websocket.disconnect()
 
     return unload_ok
 

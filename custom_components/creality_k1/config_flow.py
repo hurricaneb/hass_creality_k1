@@ -43,6 +43,10 @@ class CrealityK1ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         errors = {}
         if user_input is not None:
             ip_address = user_input.get(CONF_IP_ADDRESS)
+            
+            await self.async_set_unique_id(ip_address)
+            self._abort_if_unique_id_configured()
+            
             try:
                 await validate_connection(ip_address)
                 return self.async_create_entry(title=f'{DEVICE_MANUFACTURER} {DEVICE_MODEL}', data=user_input)

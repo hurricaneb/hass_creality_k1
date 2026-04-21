@@ -18,6 +18,7 @@ from .entity import CrealityK1Entity
 from .helpers import to_float_or_none, get_hw_sw_versions
 
 _LOGGER = logging.getLogger(__name__)
+PARALLEL_UPDATES = 0
 
 async def async_setup_entry(
     hass: HomeAssistant,
@@ -25,7 +26,7 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
     ) -> None:
     """Set up the Creality K1 climates from a config entry."""
-    coordinator: CrealityK1DataUpdateCoordinator = hass.data[DOMAIN][config_entry.entry_id] # Get correct coordinator when having multiple printers
+    coordinator: CrealityK1DataUpdateCoordinator = config_entry.runtime_data # Get correct coordinator when having multiple printers
     climates = []
     for (heater_id, translation_key, current_temp_key, target_temp_key, max_temp_key) in CLIMATE_CONTROLS:
         climates.append(

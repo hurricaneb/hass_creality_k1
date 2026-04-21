@@ -1,5 +1,6 @@
 """Tests for the Creality K1 switch platform."""
 from unittest.mock import patch
+import pytest
 
 from homeassistant.core import HomeAssistant
 from syrupy.assertion import SnapshotAssertion
@@ -35,7 +36,7 @@ async def test_switch_services(
         return_value=True,
     ):
         await setup_integration(hass, mock_config_entry, data={"lightSw": 0})
-        coordinator = hass.data["creality_k1"][mock_config_entry.entry_id]
+        coordinator = mock_config_entry.runtime_data
         coordinator.websocket.send_message = AsyncMock()
 
         # Turn on the switch
@@ -84,3 +85,36 @@ async def test_switches_unavailable(
         # Assert that all switches are unavailable
         for switch in switches:
             assert switch.state == "unavailable"
+
+
+async def test_param_switches(
+    hass: HomeAssistant,
+    mock_config_entry,
+) -> None:
+    """Test the generic parameter switches."""
+    await setup_integration(hass, mock_config_entry, data={"aiDetection": 0})
+    coordinator = mock_config_entry.runtime_data
+    coordinator.websocket.send_message = AsyncMock()
+
+    # Turn on AI Detection
+    await hass.services.async_call(
+        "switch",
+        "turn_on",
+        {"entity_id": "switch.mock_title_ai_detection"},
+        blocking=True,
+    )
+    # Check if correct param command was sent
+    # Note: K1ParamSwitch uses coordinator.send_param_command which sends {"method": "set", "params": {key: val}}
+    coordinator.websocket.send_message.assert_called_with(
+        {"method": "set", "params": {"aiDetection": 1}}
+    )
+    # Check optimistic update
+    assert coordinator.data["aiDetection"] == 1
+
+    # Test NotImplementedError in base class (covers line 62/63)
+    from custom_components.creality_k1.switch import K1Switch
+    switch = K1Switch(coordinator, mock_config_entry, "test")
+    with pytest.raises(NotImplementedError):
+        await switch._send_websocket_command(True)
+
+
