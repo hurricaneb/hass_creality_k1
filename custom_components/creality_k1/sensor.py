@@ -121,6 +121,26 @@ SENSOR_TYPES: tuple[K1SensorEntityDescription, ...] = (
         icon="mdi:printer-3d",
         value_fn=lambda data: get_state(data, "state")
     ),
+    K1SensorEntityDescription(
+        key="print_file_name",
+        translation_key="print_file_name",
+        icon="mdi:file-document-outline",
+        value_fn=lambda data: data.get("printFileName")
+    ),
+    K1SensorEntityDescription(
+        key="error_code",
+        translation_key="error_code",
+        icon="mdi:alert-circle-outline",
+        value_fn=lambda data: data.get("err", {}).get("errcode") if isinstance(data.get("err"), dict) else None
+    ),
+    K1SensorEntityDescription(
+        key="real_time_speed",
+        translation_key="real_time_speed",
+        state_class=SensorStateClass.MEASUREMENT,
+        native_unit_of_measurement="mm/s",
+        icon="mdi:speedometer",
+        value_fn=lambda data: get_float(data, "realTimeSpeed")
+    ),
 )
 
 

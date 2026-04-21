@@ -28,6 +28,9 @@
   "entity": {
     "sensor": {
       "print_state": { "name": "Utskriftsstatus" },
+      "print_file_name": { "name": "Filnamn" },
+      "error_code": { "name": "Felkod" },
+      "real_time_speed": { "name": "Utskriftshastighet" },
       "nozzle_temperature": { "name": "Nozzle-temperatur" },
       "bed_temperature": { "name": "Bädd-temperatur" },
       "box_temperature": { "name": "Chamber-temperatur" },
@@ -39,7 +42,18 @@
       "print_left_time": { "name": "Återstående tid" }
     },
     "switch": {
-      "printer_light": { "name": "Skrivarlampa" }
+      "printer_light": { "name": "Skrivarlampa" },
+      "ai_detection": { "name": "AI detektion" },
+      "ai_pause_print": { "name": "AI pausa utskrift" },
+      "ai_first_floor": { "name": "AI första-lagers kontroll" }
+    },
+    "binary_sensor": {
+      "material_detect": { "name": "Filamentsensor" },
+      "tf_card": { "name": "SD-kort" }
+    },
+    "number": {
+      "feedrate_pct": { "name": "Utskriftshastighet" },
+      "flowrate_pct": { "name": "Flöde" }
     },
     "fan": {
       "model_fan": { "name": "Kylfläkt (Model)" },

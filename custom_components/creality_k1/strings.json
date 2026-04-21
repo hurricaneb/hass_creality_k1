@@ -28,6 +28,9 @@
   "entity": {
     "sensor": {
       "print_state": { "name": "Print state" },
+      "print_file_name": { "name": "Print file name" },
+      "error_code": { "name": "Error code" },
+      "real_time_speed": { "name": "Real-time speed" },
       "nozzle_temperature": { "name": "Nozzle temperature" },
       "bed_temperature": { "name": "Bed temperature" },
       "box_temperature": { "name": "Box temperature" },
@@ -39,7 +42,18 @@
       "print_left_time": { "name": "Print remaining time" }
     },
     "switch": {
-      "printer_light": { "name": "Printer light" }
+      "printer_light": { "name": "Printer light" },
+      "ai_detection": { "name": "AI detection" },
+      "ai_pause_print": { "name": "AI pause print" },
+      "ai_first_floor": { "name": "AI first floor inspection" }
+    },
+    "binary_sensor": {
+      "material_detect": { "name": "Filament sensor" },
+      "tf_card": { "name": "SD card" }
+    },
+    "number": {
+      "feedrate_pct": { "name": "Print speed" },
+      "flowrate_pct": { "name": "Flow rate" }
     },
     "fan": {
       "model_fan": { "name": "Model fan" },

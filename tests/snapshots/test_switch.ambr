@@ -1,4 +1,46 @@
 # serializer version: 1
+# name: test_switches[switch.mock_title_ai_detection]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Mock Title AI detection',
+      'icon': 'mdi:brain',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.mock_title_ai_detection',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unknown',
+  })
+# ---
+# name: test_switches[switch.mock_title_ai_first_floor_inspection]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Mock Title AI first floor inspection',
+      'icon': 'mdi:layers-search',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.mock_title_ai_first_floor_inspection',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unknown',
+  })
+# ---
+# name: test_switches[switch.mock_title_ai_pause_print]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Mock Title AI pause print',
+      'icon': 'mdi:pause-octagon',
+    }),
+    'context': <ANY>,
+    'entity_id': 'switch.mock_title_ai_pause_print',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unknown',
+  })
+# ---
 # name: test_switches[switch.mock_title_printer_light]
   StateSnapshot({
     'attributes': ReadOnlyDict({

@@ -1,0 +1,31 @@
+# serializer version: 1
+# name: test_binary_sensors[binary_sensor.mock_title_filament_sensor]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'presence',
+      'friendly_name': 'Mock Title Filament sensor',
+      'icon': 'mdi:printer-3d-nozzle',
+    }),
+    'context': <ANY>,
+    'entity_id': 'binary_sensor.mock_title_filament_sensor',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'on',
+  })
+# ---
+# name: test_binary_sensors[binary_sensor.mock_title_sd_card]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'presence',
+      'friendly_name': 'Mock Title SD card',
+      'icon': 'mdi:sd',
+    }),
+    'context': <ANY>,
+    'entity_id': 'binary_sensor.mock_title_sd_card',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'off',
+  })
+# ---

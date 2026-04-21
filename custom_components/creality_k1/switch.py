@@ -23,6 +23,9 @@ async def async_setup_entry(
 
     async_add_entities([
         K1LightSwitch(coordinator, config_entry),
+        K1ParamSwitch(coordinator, config_entry, "aiDetection", "ai_detection", "mdi:brain"),
+        K1ParamSwitch(coordinator, config_entry, "aiPausePrint", "ai_pause_print", "mdi:pause-octagon"),
+        K1ParamSwitch(coordinator, config_entry, "aiFirstFloor", "ai_first_floor", "mdi:layers-search"),
     ])
 
 class K1Switch(CrealityK1Entity, SwitchEntity):
@@ -87,4 +90,38 @@ class K1LightSwitch(K1Switch):
         """Return true if the switch is on."""
         if self.coordinator.data and self.coordinator.websocket.is_connected:
             return self.coordinator.data.get("lightSw") == 1
+        return None
+
+class K1ParamSwitch(K1Switch):
+    """Representation of a generic parameter switch."""
+
+    def __init__(
+        self,
+        coordinator: CrealityK1DataUpdateCoordinator,
+        config_entry: ConfigEntry,
+        param_key: str,
+        translation_key: str,
+        icon: str | None = None,
+    ) -> None:
+        """Initialize the switch."""
+        super().__init__(
+            coordinator,
+            config_entry,
+            translation_key=translation_key,
+            unique_id_suffix=translation_key,
+            icon=icon
+        )
+        self.param_key = param_key
+
+    async def _send_websocket_command(self, is_on: bool) -> None:
+        """Send the command to turn the param on or off."""
+        await self.coordinator.send_param_command({self.param_key: 1 if is_on else 0})
+        # Optimistically update the state
+        self.coordinator.data[self.param_key] = 1 if is_on else 0
+
+    @property
+    def is_on(self) -> bool | None:
+        """Return true if the switch is on."""
+        if self.coordinator.data and self.coordinator.websocket.is_connected:
+            return self.coordinator.data.get(self.param_key) == 1
         return None

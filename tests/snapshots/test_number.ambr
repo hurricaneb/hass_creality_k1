@@ -1,0 +1,39 @@
+# serializer version: 1
+# name: test_numbers[number.mock_title_flow_rate]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Mock Title Flow rate',
+      'icon': 'mdi:water-percent',
+      'max': 300,
+      'min': 10,
+      'mode': <NumberMode.SLIDER: 'slider'>,
+      'step': 1,
+      'unit_of_measurement': '%',
+    }),
+    'context': <ANY>,
+    'entity_id': 'number.mock_title_flow_rate',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '95',
+  })
+# ---
+# name: test_numbers[number.mock_title_print_speed]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Mock Title Print speed',
+      'icon': 'mdi:speedometer',
+      'max': 300,
+      'min': 10,
+      'mode': <NumberMode.SLIDER: 'slider'>,
+      'step': 1,
+      'unit_of_measurement': '%',
+    }),
+    'context': <ANY>,
+    'entity_id': 'number.mock_title_print_speed',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': '100',
+  })
+# ---

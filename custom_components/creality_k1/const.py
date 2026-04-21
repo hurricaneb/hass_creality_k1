@@ -3,7 +3,7 @@
 from homeassistant.const import Platform
 
 DOMAIN = "creality_k1"  # The domain for your integration
-PLATFORMS = (Platform.SENSOR, Platform.SWITCH, Platform.FAN, Platform.BUTTON, Platform.CLIMATE, Platform.CAMERA) # The platforms that are used
+PLATFORMS = (Platform.SENSOR, Platform.SWITCH, Platform.FAN, Platform.BUTTON, Platform.CLIMATE, Platform.CAMERA, Platform.BINARY_SENSOR, Platform.NUMBER) # The platforms that are used
 
 # WebSocket constants
 MSG_TYPE_HEARTBEAT = "heart_beat"  # Heartbeat message

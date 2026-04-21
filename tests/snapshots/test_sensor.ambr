@@ -47,6 +47,20 @@
     'state': 'unknown',
   })
 # ---
+# name: test_sensors[sensor.mock_title_error_code]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Mock Title Error code',
+      'icon': 'mdi:alert-circle-outline',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.mock_title_error_code',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unknown',
+  })
+# ---
 # name: test_sensors[sensor.mock_title_nozzle_temperature]
   StateSnapshot({
     'attributes': ReadOnlyDict({
@@ -58,6 +72,20 @@
     }),
     'context': <ANY>,
     'entity_id': 'sensor.mock_title_nozzle_temperature',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unknown',
+  })
+# ---
+# name: test_sensors[sensor.mock_title_print_file_name]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Mock Title Print file name',
+      'icon': 'mdi:file-document-outline',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.mock_title_print_file_name',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -105,6 +133,22 @@
     }),
     'context': <ANY>,
     'entity_id': 'sensor.mock_title_print_state',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unknown',
+  })
+# ---
+# name: test_sensors[sensor.mock_title_real_time_speed]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Mock Title Real-time speed',
+      'icon': 'mdi:speedometer',
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'unit_of_measurement': 'mm/s',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.mock_title_real_time_speed',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,

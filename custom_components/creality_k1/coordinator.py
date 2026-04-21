@@ -64,3 +64,12 @@ class CrealityK1DataUpdateCoordinator(DataUpdateCoordinator):
             await self.websocket.send_message(command)
         except Exception as e:
             _LOGGER.error(f"Failed to send gcode command {command}: {e}")
+
+    async def send_param_command(self, params: dict) -> None:
+        """Helper function to send raw parameter commands."""
+        command = {"method": "set", "params": params}
+        _LOGGER.debug(f"Sending param command: {command}")
+        try:
+            await self.websocket.send_message(command)
+        except Exception as e:
+            _LOGGER.error(f"Failed to send param command {command}: {e}")
