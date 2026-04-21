@@ -28,7 +28,7 @@
 # name: test_buttons[button.mock_title_pause_print]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Mock Title Pause Print',
+      'friendly_name': 'Mock Title Pause print',
     }),
     'context': <ANY>,
     'entity_id': 'button.mock_title_pause_print',
@@ -41,7 +41,7 @@
 # name: test_buttons[button.mock_title_resume_print]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Mock Title Resume Print',
+      'friendly_name': 'Mock Title Resume print',
     }),
     'context': <ANY>,
     'entity_id': 'button.mock_title_resume_print',
@@ -54,7 +54,7 @@
 # name: test_buttons[button.mock_title_stop_print]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Mock Title Stop Print',
+      'friendly_name': 'Mock Title Stop print',
     }),
     'context': <ANY>,
     'entity_id': 'button.mock_title_stop_print',

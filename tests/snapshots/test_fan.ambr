@@ -2,7 +2,7 @@
 # name: test_fans[fan.mock_title_case_fan]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Mock Title Case Fan',
+      'friendly_name': 'Mock Title Case fan',
       'icon': 'mdi:fan-speed-2',
       'percentage': None,
       'percentage_step': 1.0,
@@ -21,7 +21,7 @@
 # name: test_fans[fan.mock_title_model_fan]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Mock Title Model Fan',
+      'friendly_name': 'Mock Title Model fan',
       'icon': 'mdi:fan-speed-1',
       'percentage': None,
       'percentage_step': 1.0,
@@ -40,7 +40,7 @@
 # name: test_fans[fan.mock_title_side_fan]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Mock Title Side Fan',
+      'friendly_name': 'Mock Title Side fan',
       'icon': 'mdi:fan-speed-3',
       'percentage': None,
       'percentage_step': 1.0,
