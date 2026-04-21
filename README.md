@@ -2,8 +2,11 @@
 
 This is a custom component for [Home Assistant](https://www.home-assistant.io/) to integrate with Creality K1, K1C, and K1 Max 3D printers. It communicates directly with the printer over your local network using its WebSocket API (port 9999), providing sensors and controls without relying on the Creality Cloud.
 
+This integration uses the [creality-k1-api](https://pypi.org/project/creality-k1-api/) Python package to ensure robust, asynchronous communication.
+
 ## Features
 
+* **Multi-Printer Support:** Fully compatible with the Creality K1, K1C, and K1 Max.
 * **Real-time Monitoring:**
     * Printer State (Printing, Idle, Paused, Complete, Failed, etc.)
     * Nozzle Temperature (Current & Target)
@@ -21,11 +24,13 @@ This is a custom component for [Home Assistant](https://www.home-assistant.io/) 
     * Quick Buttons (Pause Print, Resume Print, Stop Print, Home XY, Home Z).
     * Control Heaters (Nozzle and Bed) via On, Off and Target Temp. (Uses `M104` and `M140` GCODE commands).
 * **Local Control:** Communicates directly via the local network WebSocket.
+* **Seamless Reconfiguration:** Did your printer's IP address change? No need to reinstall! You can easily update the IP address from the integration settings in Home Assistant.
+* **Internationalization (i18n):** Native support for English and Swedish out of the box. All entities automatically adapt to your Home Assistant language preferences.
 
 ## Requirements
 
 * Home Assistant instance.
-* Creality K1 or K1 Max printer connected to your local network.
+* Creality K1, K1C, or K1 Max printer connected to your local network.
 * Network connectivity between your Home Assistant instance and the printer.
 * The IP address of your printer.
 
@@ -41,7 +46,7 @@ This is a custom component for [Home Assistant](https://www.home-assistant.io/) 
 5. Add and Install: Click "Add". The repository will now appear in your HACS integrations list. Click on it and then click "Install".
 6. Restart Home Assistant: After the installation is complete, you will be prompted to restart Home Assistant. Please do so to apply the changes.
 7. Add Integration: Go to Settings > Devices & Services and click the "Add Integration" button. Search for "Creality K1" and add it.
-8. Configure: Enter the IP address of your Creality K1 printer to complete the setup.
+8. Configure: Enter the IP address of your Creality printer to complete the setup.
 
 ### Method 2: Manual Installation
 
@@ -64,51 +69,30 @@ Once installed and after restarting Home Assistant:
 2.  Click the **+ Add Integration** button in the bottom right corner.
 3.  Search for "**Creality K1**".
 4.  Select the integration.
-5.  You will be prompted to enter the **IP Address** of your Creality K1 / K1 Max printer.
+5.  You will be prompted to enter the **IP Address** of your Creality printer.
 6.  Click **Submit**.
 
 The integration will attempt to connect to your printer via WebSocket. If successful, it will add the device and its associated entities to Home Assistant.
 
+### Updating IP Address
+If the IP address of your printer changes, simply go to Settings > Devices & Services, locate your Creality K1 integration, click the **Configure** button, and enter the new IP address.
+
 ## Entities Provided
 
-This integration creates several entities, typically prefixed with the name you gave the device during setup (e.g., `fan.k1_model_fan`). Key entities include:
+This integration creates several entities, typically prefixed with the name you gave the device during setup. Key entities include:
 
-* **Fans (`fan.`):**
-    * Model Fan (with percentage control)
-    * Case Fan (with percentage control)
-    * Side Fan (with percentage control)
-* **Switch (`switch.`):**
-    * LED Light
-* **Sensors (`sensor.`):**
-    * Printer Status (e.g., Idle, Printing, Paused)
-    * Nozzle Temperature
-    * Nozzle Target Temperature
-    * Bed Temperature
-    * Bed Target Temperature
-    * Chamber/Box Temperature (if available)
-    * Print Progress
-    * Print Job Time
-    * Print Remaining Time
-    * Current Layer
-    * Total Layers
-    * ... and can add potentially others depending on printer reports.
-* **Buttons (`button.`):**
-    * Pause Print
-    * Resume Print
-    * Stop Print
-    * Home XY
-    * Home Z
-    * ... easily add more, see `const.py` for examples.
-* **Heaters (`climate.`):**
-    * Nozzle Heater (with target temp control)
-    * Bed Heater (with target temp control)
+* **Fans (`fan.`):** Model Fan, Case Fan, Side Fan (with percentage control)
+* **Switch (`switch.`):** LED Light
+* **Sensors (`sensor.`):** Printer Status, Temperatures (Nozzle, Bed, Chamber), Print Progress, Times (Job, Remaining), Layers
+* **Buttons (`button.`):** Pause, Resume, Stop, Home XY, Home Z
+* **Heaters (`climate.`):** Nozzle Heater, Bed Heater (with target temp control)
 
 ## Troubleshooting / Notes
 
 * **Connection Issues:** Ensure your printer is powered on, connected to the network, and that the IP address entered during configuration is correct. Check for firewall rules blocking traffic between Home Assistant and the printer (specifically WebSocket traffic on port 9999).
 * **Fan Control:** Fan percentage is controlled by sending `M106 P<index> S<0-255>` GCODE commands via the WebSocket. `Pct` values reported by the printer reflect status but are not used for direct control.
 * **Heater Control:** Use a thermostat card in HA to control heaters.
-* **Firmware Differences:** Printer behavior and available data might vary slightly depending on the firmware version installed on your K1 / K1 Max.
+* **Firmware Differences:** Printer behavior and available data might vary slightly depending on the firmware version installed on your printer.
 
 ## Disclaimer
 
