@@ -17,6 +17,7 @@ This integration uses the [creality-k1-api](https://pypi.org/project/creality-k1
     * Current Layer / Total Layers
     * Fan Speeds (%)
     * LED Light Status
+    * Built-in Camera stream (MJPEG)
     * And can add other sensors exposed by the WebSocket API.
 * **Controls:**
     * Turn LED Light On/Off.
@@ -81,6 +82,7 @@ If the IP address of your printer changes, simply go to Settings > Devices & Ser
 
 This integration creates several entities, typically prefixed with the name you gave the device during setup. Key entities include:
 
+* **Camera (`camera.`):** MJPEG Camera Stream (Automatically added if a camera is connected)
 * **Fans (`fan.`):** Model Fan, Case Fan, Side Fan (with percentage control)
 * **Switch (`switch.`):** LED Light
 * **Sensors (`sensor.`):** Printer Status, Temperatures (Nozzle, Bed, Chamber), Print Progress, Times (Job, Remaining), Layers
