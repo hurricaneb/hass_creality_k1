@@ -11,7 +11,7 @@ from homeassistant.helpers.update_coordinator import (
 )
 
 from .const import DOMAIN, HASS_UPDATE_INTERVAL, WS_OPERATION_TIMEOUT
-from .websocket import MyWebSocket  # MyWebSocket class from websockets.py
+from creality_k1_api import CrealityK1Client
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -31,10 +31,9 @@ class CrealityK1DataUpdateCoordinator(DataUpdateCoordinator):
             update_interval=timedelta(seconds=HASS_UPDATE_INTERVAL)
             )
         self.latest_data = {}  # Store the processed data
-        printer_ip = config_entry.data.get(CONF_IP_ADDRESS)  # Hämta IP från config entry
+        printer_ip = config_entry.data.get(CONF_IP_ADDRESS)  # Get IP from config entry
         ws_url = f"ws://{printer_ip}:9999"
-        self.websocket = MyWebSocket(
-            hass=hass,
+        self.websocket = CrealityK1Client(
             url=ws_url,
             new_data_callback=self.process_raw_data,
             )

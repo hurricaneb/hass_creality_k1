@@ -3,7 +3,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'temperature',
-      'friendly_name': 'Mock Title Bed Temperature',
+      'friendly_name': 'Mock Title Bed temperature',
       'icon': 'mdi:thermometer',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'unit_of_measurement': <UnitOfTemperature.CELSIUS: '°C'>,
@@ -20,7 +20,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'temperature',
-      'friendly_name': 'Mock Title Box Temperature',
+      'friendly_name': 'Mock Title Box temperature',
       'icon': 'mdi:thermometer',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'unit_of_measurement': <UnitOfTemperature.CELSIUS: '°C'>,
@@ -33,11 +33,25 @@
     'state': 'unknown',
   })
 # ---
+# name: test_sensors[sensor.mock_title_current_layer]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Mock Title Current layer',
+      'icon': 'mdi:cube-outline',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.mock_title_current_layer',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unknown',
+  })
+# ---
 # name: test_sensors[sensor.mock_title_nozzle_temperature]
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'temperature',
-      'friendly_name': 'Mock Title Nozzle Temperature',
+      'friendly_name': 'Mock Title Nozzle temperature',
       'icon': 'mdi:thermometer',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'unit_of_measurement': <UnitOfTemperature.CELSIUS: '°C'>,
@@ -50,27 +64,10 @@
     'state': 'unknown',
   })
 # ---
-# name: test_sensors[sensor.mock_title_print_job_left]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'device_class': 'duration',
-      'friendly_name': 'Mock Title Print Job Left',
-      'icon': 'mdi:timer-sand',
-      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
-      'unit_of_measurement': 's',
-    }),
-    'context': <ANY>,
-    'entity_id': 'sensor.mock_title_print_job_left',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'unknown',
-  })
-# ---
 # name: test_sensors[sensor.mock_title_print_progress]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Mock Title Print Progress',
+      'friendly_name': 'Mock Title Print progress',
       'icon': 'mdi:percent',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'unit_of_measurement': '%',
@@ -83,10 +80,27 @@
     'state': 'unknown',
   })
 # ---
+# name: test_sensors[sensor.mock_title_print_remaining_time]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'device_class': 'duration',
+      'friendly_name': 'Mock Title Print remaining time',
+      'icon': 'mdi:timer-sand',
+      'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
+      'unit_of_measurement': 's',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.mock_title_print_remaining_time',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unknown',
+  })
+# ---
 # name: test_sensors[sensor.mock_title_print_state]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Mock Title Print State',
+      'friendly_name': 'Mock Title Print state',
       'icon': 'mdi:printer-3d',
     }),
     'context': <ANY>,
@@ -97,14 +111,14 @@
     'state': 'unknown',
   })
 # ---
-# name: test_sensors[sensor.mock_title_total_layer_count]
+# name: test_sensors[sensor.mock_title_total_layers]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Mock Title Total Layer Count',
+      'friendly_name': 'Mock Title Total layers',
       'icon': 'mdi:layers',
     }),
     'context': <ANY>,
-    'entity_id': 'sensor.mock_title_total_layer_count',
+    'entity_id': 'sensor.mock_title_total_layers',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,
@@ -115,7 +129,7 @@
   StateSnapshot({
     'attributes': ReadOnlyDict({
       'device_class': 'duration',
-      'friendly_name': 'Mock Title Total Print Time',
+      'friendly_name': 'Mock Title Total print time',
       'icon': 'mdi:timer-sand',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'unit_of_measurement': 's',
@@ -131,27 +145,13 @@
 # name: test_sensors[sensor.mock_title_used_material_length]
   StateSnapshot({
     'attributes': ReadOnlyDict({
-      'friendly_name': 'Mock Title Used Material Length',
+      'friendly_name': 'Mock Title Used material length',
       'icon': 'mdi:tape-measure',
       'state_class': <SensorStateClass.MEASUREMENT: 'measurement'>,
       'unit_of_measurement': 'cm',
     }),
     'context': <ANY>,
     'entity_id': 'sensor.mock_title_used_material_length',
-    'last_changed': <ANY>,
-    'last_reported': <ANY>,
-    'last_updated': <ANY>,
-    'state': 'unknown',
-  })
-# ---
-# name: test_sensors[sensor.mock_title_working_layer]
-  StateSnapshot({
-    'attributes': ReadOnlyDict({
-      'friendly_name': 'Mock Title Working Layer',
-      'icon': 'mdi:cube-outline',
-    }),
-    'context': <ANY>,
-    'entity_id': 'sensor.mock_title_working_layer',
     'last_changed': <ANY>,
     'last_reported': <ANY>,
     'last_updated': <ANY>,

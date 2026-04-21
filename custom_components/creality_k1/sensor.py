@@ -44,16 +44,16 @@ class K1Sensor(CoordinatorEntity, SensorEntity):
         self,
         coordinator: CrealityK1DataUpdateCoordinator,
         config_entry: ConfigEntry,
-        name: str,
+        translation_key: str,
         device_class: SensorDeviceClass | None = None,
         unit_of_measurement: str | None = None,
         state_class: SensorStateClass | None = None,
         icon: str | None = None,
-        unique_id_suffix: str | None = None,  # Lägg till unique_id här
+        unique_id_suffix: str | None = None,  # Add unique_id here
         ) -> None:
         """Initialize the sensor."""
         super().__init__(coordinator)
-        self._attr_name = name
+        self._attr_translation_key = translation_key
         self._attr_device_class = device_class
         self._attr_native_unit_of_measurement = unit_of_measurement
         self._attr_state_class = state_class
@@ -103,7 +103,7 @@ class K1NozzleTemperatureSensor(K1Sensor):
         super().__init__(
             coordinator=coordinator,
             config_entry=config_entry, # Pass entry
-            name=SENSOR_NAME_NOZZLE_TEMP,
+            translation_key="nozzle_temperature",
             device_class=SensorDeviceClass.TEMPERATURE,
             state_class=SensorStateClass.MEASUREMENT,
             unit_of_measurement=UnitOfTemperature.CELSIUS,
@@ -147,7 +147,7 @@ class K1BedTemperatureSensor(K1Sensor):
         super().__init__(
             coordinator=coordinator,
             config_entry=config_entry, # Pass entry
-            name=SENSOR_NAME_BED_TEMP,
+            translation_key="bed_temperature",
             device_class=SensorDeviceClass.TEMPERATURE,
             state_class=SensorStateClass.MEASUREMENT,
             unit_of_measurement=UnitOfTemperature.CELSIUS,
@@ -191,7 +191,7 @@ class K1BoxTemperatureSensor(K1Sensor):
         super().__init__(
             coordinator=coordinator,
             config_entry=config_entry, # Pass entry
-            name=SENSOR_NAME_BOX_TEMP,
+            translation_key="box_temperature",
             device_class=SensorDeviceClass.TEMPERATURE,
             state_class=SensorStateClass.MEASUREMENT,
             unit_of_measurement=UnitOfTemperature.CELSIUS,
@@ -225,7 +225,7 @@ class K1PrintProgressSensor(K1Sensor):
         super().__init__(
             coordinator=coordinator,
             config_entry=config_entry, # Pass entry
-            name=SENSOR_NAME_PRINT_PROGRESS,
+            translation_key="print_progress",
             state_class=SensorStateClass.MEASUREMENT,
             unit_of_measurement=PERCENTAGE,
             unique_id_suffix="print_progress", # Pass suffix
@@ -258,7 +258,7 @@ class K1TotalLayerSensor(K1Sensor):
         super().__init__(
             coordinator=coordinator,
             config_entry=config_entry, # Pass entry
-            name=SENSOR_NAME_TOTAL_LAYER,
+            translation_key="total_layer",
             unique_id_suffix="total_layer_count", # Pass suffix
             icon="mdi:layers" # Optional: Explicitly set icon if needed
         )
@@ -289,7 +289,7 @@ class K1WorkingLayerSensor(K1Sensor):
         super().__init__(
             coordinator=coordinator,
             config_entry=config_entry, # Pass entry
-            name=SENSOR_NAME_WORKING_LAYER,
+            translation_key="working_layer",
             unique_id_suffix="working_layer_count", # Pass suffix
             icon="mdi:cube-outline" # Optional: Explicitly set icon if needed
         )
@@ -320,7 +320,7 @@ class K1UsedMaterialSensor(K1Sensor):
         super().__init__(
             coordinator=coordinator,
             config_entry=config_entry, # Pass entry
-            name=SENSOR_NAME_USED_MATERIAL,
+            translation_key="used_material",
             state_class=SensorStateClass.MEASUREMENT,
             unit_of_measurement="cm",
             unique_id_suffix="used_material_length", # Pass suffix
@@ -351,7 +351,7 @@ class K1PrintJobTimeSensor(K1Sensor):
         super().__init__(
             coordinator=coordinator,
             config_entry=config_entry, # Pass entry
-            name=SENSOR_NAME_TOTAL_PRINT_TIME,
+            translation_key="print_job_time",
             device_class=SensorDeviceClass.DURATION,
             state_class=SensorStateClass.MEASUREMENT,
             unit_of_measurement="s",
@@ -383,7 +383,7 @@ class K1PrintLeftTimeSensor(K1Sensor):
         super().__init__(
             coordinator=coordinator,
             config_entry=config_entry, # Pass entry
-            name=SENSOR_NAME_PRINT_JOB_LEFT,
+            translation_key="print_left_time",
             device_class=SensorDeviceClass.DURATION,
             state_class=SensorStateClass.MEASUREMENT,
             unit_of_measurement="s",
@@ -415,7 +415,7 @@ class K1PrintState(K1Sensor):
         super().__init__(
             coordinator=coordinator,
             config_entry=config_entry, # Pass entry
-            name=SENSOR_NAME_PRINT_STATE,
+            translation_key="print_state",
             unique_id_suffix="print_state_sensor", # Pass suffix
             icon="mdi:printer-3d" # Optional: Explicitly set icon if needed
         )

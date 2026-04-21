@@ -1,6 +1,6 @@
-# Home Assistant Creality K1 / K1 Max Integration
+# Home Assistant Creality K1 / K1C / K1 Max Integration
 
-This is a custom component for [Home Assistant](https://www.home-assistant.io/) to integrate with Creality K1 Max 3D printers. It communicates directly with the printer over your local network using its WebSocket API (port 9999), providing sensors and controls without relying on the Creality Cloud.
+This is a custom component for [Home Assistant](https://www.home-assistant.io/) to integrate with Creality K1, K1C, and K1 Max 3D printers. It communicates directly with the printer over your local network using its WebSocket API (port 9999), providing sensors and controls without relying on the Creality Cloud.
 
 ## Features
 

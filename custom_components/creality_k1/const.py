@@ -2,12 +2,12 @@
 
 from homeassistant.const import Platform
 
-DOMAIN = "creality_k1"  # Domänen för din integration
-PLATFORMS = (Platform.SENSOR, Platform.SWITCH, Platform.FAN, Platform.BUTTON, Platform.CLIMATE) # De plattformar som används
+DOMAIN = "creality_k1"  # The domain for your integration
+PLATFORMS = (Platform.SENSOR, Platform.SWITCH, Platform.FAN, Platform.BUTTON, Platform.CLIMATE) # The platforms that are used
 
 # WebSocket-relaterade konstanter
-MSG_TYPE_HEARTBEAT = "heart_beat"  # Hjärtslagsmeddelande
-HEARTBEAT_INTERVAL = 5  # Sekunder
+MSG_TYPE_HEARTBEAT = "heart_beat"  # Heartbeat message
+HEARTBEAT_INTERVAL = 5  # Seconds
 WS_OPERATION_TIMEOUT = 10 # seconds
 HASS_UPDATE_INTERVAL = 30 # seconds
 

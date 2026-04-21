@@ -1,0 +1,61 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Anslut till Creality K1",
+        "description": "Ange IP-adressen för din Creality K1, K1C eller K1 Max.",
+        "data": {
+          "ip_address": "IP-adress"
+        }
+      },
+      "reconfigure": {
+        "title": "Omkonfigurera Creality K1",
+        "description": "Uppdatera IP-adressen för din Creality K1 skrivare.",
+        "data": {
+          "ip_address": "IP-adress"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Kunde inte ansluta, verifiera IP-adressen och att skrivaren är påslagen.",
+      "unknown": "Ett oväntat fel uppstod"
+    },
+    "abort": {
+      "already_configured": "Enheten är redan konfigurerad",
+      "reconfigure_successful": "Omkonfigureringen lyckades"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "print_state": { "name": "Utskriftsstatus" },
+      "nozzle_temperature": { "name": "Nozzle-temperatur" },
+      "bed_temperature": { "name": "Bädd-temperatur" },
+      "box_temperature": { "name": "Chamber-temperatur" },
+      "print_progress": { "name": "Utskriftsförlopp" },
+      "total_layer": { "name": "Totalt antal lager" },
+      "working_layer": { "name": "Aktuellt lager" },
+      "used_material": { "name": "Förbrukat material" },
+      "print_job_time": { "name": "Total utskriftstid" },
+      "print_left_time": { "name": "Återstående tid" }
+    },
+    "switch": {
+      "printer_light": { "name": "Skrivarlampa" }
+    },
+    "fan": {
+      "model_fan": { "name": "Kylfläkt (Model)" },
+      "case_fan": { "name": "Chassifläkt (Back)" },
+      "side_fan": { "name": "Sidofläkt (Aux)" }
+    },
+    "button": {
+      "pause_print": { "name": "Pausa utskrift" },
+      "resume_print": { "name": "Återuppta utskrift" },
+      "stop_print": { "name": "Stoppa utskrift" },
+      "home_xy": { "name": "Home XY" },
+      "home_z": { "name": "Home Z" }
+    },
+    "climate": {
+      "nozzle_heater": { "name": "Nozzle-värmare" },
+      "bed_heater": { "name": "Bädd-värmare" }
+    }
+  }
+}

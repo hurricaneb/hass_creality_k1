@@ -12,7 +12,7 @@ async def setup_integration(
     mock_config_entry.add_to_hass(hass)
 
     with patch(
-        "custom_components.creality_k1.coordinator.MyWebSocket"
+        "custom_components.creality_k1.coordinator.CrealityK1Client"
     ) as mock_client:
         client = mock_client.return_value
         client.is_connected = True

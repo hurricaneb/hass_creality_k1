@@ -32,6 +32,7 @@ async def async_setup_entry(
 class K1Switch(CoordinatorEntity, SwitchEntity):
     """Base class for Creality K1 switches."""
     _attr_has_entity_name = True
+    _attr_name = None
 
     def __init__(
         self,

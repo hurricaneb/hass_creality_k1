@@ -1,11 +1,11 @@
 {
     "domain": "creality_k1",
     "name": "Creality K1",
-    "version": "2.0.1",
+    "version": "2.1.0",
     "iot_class": "local_push",
-    "requirements": ["voluptuous", "aiohttp", "websockets"],
+    "requirements": ["voluptuous", "creality-k1-api==0.0.2"],
     "config_flow": true,
-    "codeowners": ["@hurricaneb"],
+    "codeowners": ["@hurricaneb", "@thejoshw"],
     "dependencies": [],
     "documentation": "https://github.com/hurricaneb/hass_creality_k1",
     "issue_tracker": "https://github.com/hurricaneb/hass_creality_k1/issues"

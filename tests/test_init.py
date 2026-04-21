@@ -10,7 +10,7 @@ from unittest.mock import patch
 async def test_load_unload_integration(hass, mock_config_entry):
     """Test loading and unloading the integration."""
     with patch(
-        "custom_components.creality_k1.coordinator.MyWebSocket", autospec=True
+        "custom_components.creality_k1.coordinator.CrealityK1Client", autospec=True
     ) as mock_client:
         client = mock_client.return_value
         client.is_connected = True
