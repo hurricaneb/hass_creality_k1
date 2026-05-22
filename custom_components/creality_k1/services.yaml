@@ -1,0 +1,11 @@
+get_timelapses:
+  name: Get Timelapses
+  description: Fetches a list of recorded timelapse videos from the Creality K1 printer.
+  fields:
+    config_entry_id:
+      name: Config Entry
+      description: The Creality K1 printer config entry to query.
+      required: true
+      selector:
+        config_entry:
+          integration: creality_k1

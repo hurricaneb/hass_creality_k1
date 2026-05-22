@@ -39,7 +39,8 @@
       "working_layer": { "name": "Aktuellt lager" },
       "used_material": { "name": "Förbrukat material" },
       "print_job_time": { "name": "Total utskriftstid" },
-      "print_left_time": { "name": "Återstående tid" }
+      "print_left_time": { "name": "Återstående tid" },
+      "timelapses": { "name": "Timelapse-videor" }
     },
     "switch": {
       "printer_light": { "name": "Skrivarlampa" },
@@ -73,6 +74,18 @@
     },
     "camera": {
       "camera": { "name": "Kamera" }
+    }
+  },
+  "services": {
+    "get_timelapses": {
+      "name": "Hämta timelapse-videor",
+      "description": "Hämtar en lista över inspelade timelapse-videor från Creality K1-skrivaren.",
+      "fields": {
+        "config_entry_id": {
+          "name": "Integrationsinställning",
+          "description": "Den integrationsinställning för Creality K1-skrivaren som ska frågas."
+        }
+      }
     }
   }
 }

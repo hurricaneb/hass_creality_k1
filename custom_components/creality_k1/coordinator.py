@@ -54,16 +54,48 @@ class CrealityK1DataUpdateCoordinator(DataUpdateCoordinator):
         if not self._was_available:
             _LOGGER.info("Creality K1 connection restored")
             self._was_available = True
+
+        # Fetch timelapses on initial startup/connection
+        if "timelapses" not in self.latest_data:
+            try:
+                self.latest_data["timelapses"] = await self.websocket.get_timelapses()
+            except Exception as e:
+                _LOGGER.warning("Failed to fetch initial timelapses: %s", e)
             
         return self.latest_data
+
+    async def _async_fetch_timelapses_and_update(self) -> None:
+        """Fetch timelapses and update coordinator data."""
+        try:
+            if self.websocket.is_connected:
+                timelapses = await self.websocket.get_timelapses()
+                self.latest_data["timelapses"] = timelapses
+                self.async_set_updated_data(self.latest_data)
+        except Exception as e:
+            _LOGGER.error("Failed to fetch timelapses: %s", e)
 
     def process_raw_data(self, raw_data: dict) -> None:
         """Update latest data with raw data."""
         _LOGGER.debug(f"Coordinator: Fetched raw data: {raw_data}")
         if raw_data:
+            prev_state = self.latest_data.get("state")
+            new_state = raw_data.get("state")
+
             self.latest_data.update(raw_data)  # Update latest data
             _LOGGER.debug(f"Coordinator: Processed data: {self.latest_data}")
             _LOGGER.debug(f"Coordinator: lightSw value in processed_data: {self.latest_data.get('lightSw')}")
+
+            # If the print state transitioned to Completed (2) from another state, trigger a fetch
+            if new_state is not None and prev_state is not None:
+                try:
+                    prev_state_int = int(prev_state)
+                    new_state_int = int(new_state)
+                    if prev_state_int != 2 and new_state_int == 2:
+                        _LOGGER.info("Print completed, fetching updated timelapses")
+                        self.hass.async_create_task(self._async_fetch_timelapses_and_update())
+                except (ValueError, TypeError):
+                    pass
+
             self.async_set_updated_data(self.latest_data)
 
     async def send_gcode_command(self, gcode: str) -> None:

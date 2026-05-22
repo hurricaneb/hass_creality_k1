@@ -155,6 +155,20 @@
     'state': 'unknown',
   })
 # ---
+# name: test_sensors[sensor.mock_title_timelapses]
+  StateSnapshot({
+    'attributes': ReadOnlyDict({
+      'friendly_name': 'Mock Title Timelapses',
+      'icon': 'mdi:video-clip',
+    }),
+    'context': <ANY>,
+    'entity_id': 'sensor.mock_title_timelapses',
+    'last_changed': <ANY>,
+    'last_reported': <ANY>,
+    'last_updated': <ANY>,
+    'state': 'unknown',
+  })
+# ---
 # name: test_sensors[sensor.mock_title_total_layers]
   StateSnapshot({
     'attributes': ReadOnlyDict({

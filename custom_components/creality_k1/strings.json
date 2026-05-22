@@ -39,7 +39,8 @@
       "working_layer": { "name": "Current layer" },
       "used_material": { "name": "Used material length" },
       "print_job_time": { "name": "Total print time" },
-      "print_left_time": { "name": "Print remaining time" }
+      "print_left_time": { "name": "Print remaining time" },
+      "timelapses": { "name": "Timelapses" }
     },
     "switch": {
       "printer_light": { "name": "Printer light" },
@@ -73,6 +74,18 @@
     },
     "camera": {
       "camera": { "name": "Camera" }
+    }
+  },
+  "services": {
+    "get_timelapses": {
+      "name": "Get timelapses",
+      "description": "Fetches a list of recorded timelapse videos from the Creality K1 printer.",
+      "fields": {
+        "config_entry_id": {
+          "name": "Config entry",
+          "description": "The Creality K1 printer config entry to query."
+        }
+      }
     }
   }
 }

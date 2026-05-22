@@ -142,6 +142,13 @@ SENSOR_TYPES: tuple[K1SensorEntityDescription, ...] = (
         icon="mdi:speedometer",
         value_fn=lambda data: get_float(data, "realTimeSpeed")
     ),
+    K1SensorEntityDescription(
+        key="timelapses",
+        translation_key="timelapses",
+        icon="mdi:video-clip",
+        value_fn=lambda data: len(data.get("timelapses", [])),
+        attributes_fn=lambda data: {"videos": data.get("timelapses", [])}
+    ),
 )
 
 

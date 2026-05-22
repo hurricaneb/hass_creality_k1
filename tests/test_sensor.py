@@ -84,3 +84,105 @@ async def test_sensor_helper_error_cases(
     assert to_float_or_none("invalid", "key") is None
 
 
+async def test_timelapses_sensor(
+    hass: HomeAssistant,
+    mock_config_entry,
+) -> None:
+    """Test the timelapses sensor and automatic update on completion."""
+    with patch(
+        "custom_components.creality_k1.coordinator.CrealityK1Client", autospec=True
+    ) as mock_client:
+        client = mock_client.return_value
+        client.is_connected = True
+        client.disconnect.return_value = True
+
+        # Mock the timelapse list
+        mock_timelapses = [
+            {
+                "gcode": "benchy.gcode",
+                "url": "http://1.2.3.4/downloads/video/1764698892.mp4",
+                "timestamp": 1764698892,
+                "start_time": "2025-11-20T12:34:52+00:00",
+            }
+        ]
+        client.get_timelapses.return_value = mock_timelapses
+
+        mock_config_entry.add_to_hass(hass)
+
+        # Load integration
+        await hass.config_entries.async_setup(mock_config_entry.entry_id)
+        await hass.async_block_till_done()
+
+        # The sensor should be created and show 1 timelapse initially
+        sensor_state = hass.states.get("sensor.mock_title_timelapses")
+        assert sensor_state is not None
+        assert sensor_state.state == "1"
+        assert sensor_state.attributes["videos"] == mock_timelapses
+
+        # Reset mock
+        client.get_timelapses.reset_mock()
+
+        # Test state transition to Completed (2)
+        coordinator = mock_config_entry.runtime_data
+        
+        # Initial state is 1 (Printing)
+        coordinator.latest_data["state"] = 1
+        
+        # Update mock response for the completed print
+        updated_timelapses = mock_timelapses + [
+            {
+                "gcode": "cube.gcode",
+                "url": "http://1.2.3.4/downloads/video/1764699999.mp4",
+                "timestamp": 1764699999,
+                "start_time": "2025-11-20T12:45:00+00:00",
+            }
+        ]
+        client.get_timelapses.return_value = updated_timelapses
+
+        # Simulate incoming websocket message with state = 2 (Complete)
+        coordinator.process_raw_data({"state": 2})
+        await hass.async_block_till_done()
+
+        # Check that get_timelapses was called again
+        client.get_timelapses.assert_called_once()
+        
+        # Verify the sensor updated
+        sensor_state = hass.states.get("sensor.mock_title_timelapses")
+        assert sensor_state.state == "2"
+        assert len(sensor_state.attributes["videos"]) == 2
+
+
+async def test_timelapses_sensor_error_handling(
+    hass: HomeAssistant,
+    mock_config_entry,
+) -> None:
+    """Test error handling in coordinator for timelapses."""
+    with patch(
+        "custom_components.creality_k1.coordinator.CrealityK1Client", autospec=True
+    ) as mock_client:
+        client = mock_client.return_value
+        client.is_connected = True
+        client.disconnect.return_value = True
+        client.get_timelapses.return_value = []
+
+        mock_config_entry.add_to_hass(hass)
+        await hass.config_entries.async_setup(mock_config_entry.entry_id)
+        await hass.async_block_till_done()
+
+        coordinator = mock_config_entry.runtime_data
+
+        # 1. Test get_timelapses raising an exception in _async_fetch_timelapses_and_update
+        client.get_timelapses.side_effect = Exception("Websocket failure")
+        coordinator.latest_data["state"] = 1
+        coordinator.process_raw_data({"state": 2})
+        await hass.async_block_till_done()
+        assert client.get_timelapses.called
+
+        # 2. Test ValueError/TypeError in state transition
+        client.get_timelapses.reset_mock()
+        client.get_timelapses.side_effect = None
+        client.get_timelapses.return_value = []
+        coordinator.latest_data["state"] = "invalid_state"
+        coordinator.process_raw_data({"state": 2})
+        await hass.async_block_till_done()
+        assert not client.get_timelapses.called
