@@ -21,12 +21,8 @@ async def async_setup_entry(
 ) -> None:
     """Set up the Creality K1 camera from a config entry."""
     coordinator: CrealityK1DataUpdateCoordinator = config_entry.runtime_data
+    async_add_entities([K1Camera(coordinator, config_entry)])
 
-    # Only add the camera if the printer reports that video is available
-    if coordinator.data and coordinator.data.get("video") == 1:
-        async_add_entities([K1Camera(coordinator, config_entry)])
-    else:
-        _LOGGER.debug(f"Camera not added for {config_entry.title} because 'video' is not 1 in printer payload.")
 
 class K1Camera(CrealityK1Entity, MjpegCamera):
     """Representation of a Creality K1 Camera."""
@@ -55,5 +51,8 @@ class K1Camera(CrealityK1Entity, MjpegCamera):
     @property
     def available(self) -> bool:
         """Return True if the camera is available."""
-        # Camera availability is tied to the printer connection
-        return self.coordinator.websocket.is_connected and super().available
+        if not self.coordinator.websocket.is_connected:
+            return False
+        if self.coordinator.data and self.coordinator.data.get("video") == 0:
+            return False
+        return super().available

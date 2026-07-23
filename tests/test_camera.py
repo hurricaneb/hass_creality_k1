@@ -41,11 +41,11 @@ async def test_camera(
 
 
 
-async def test_camera_not_added(
+async def test_camera_unavailable_when_video_zero(
     hass: HomeAssistant,
     mock_config_entry,
 ) -> None:
-    """Test that camera is not added if video is 0."""
+    """Test that camera is unavailable if video is 0."""
     with patch("custom_components.creality_k1.coordinator.CrealityK1DataUpdateCoordinator.async_config_entry_first_refresh") as mock_refresh:
         async def mock_first_refresh():
             coordinator = mock_config_entry.runtime_data
@@ -55,4 +55,5 @@ async def test_camera_not_added(
         await setup_integration(hass, mock_config_entry)
 
         cameras = hass.states.async_all("camera")
-        assert len(cameras) == 0
+        assert len(cameras) == 1
+        assert cameras[0].state == "unavailable"
